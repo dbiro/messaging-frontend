@@ -11,7 +11,11 @@ namespace Sixeyed.MessagingPoweredFrontEnd.Web
     {
         public void Configuration(IAppBuilder app)
         {
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
             app.MapSignalR();
+
+            //app.MapAzureSignalR(this.GetType().FullName);
         }
     }
 }
