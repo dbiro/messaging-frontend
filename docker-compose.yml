@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  persistentstore:
+    image: sixeyed/hbase-stargate    
+    ports:
+      - "8080:8080"    
+
+  queue:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
