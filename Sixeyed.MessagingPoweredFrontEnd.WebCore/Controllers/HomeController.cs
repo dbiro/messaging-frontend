@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Sixeyed.MessagingPoweredFrontEnd.WebCore.Models;
+using System.Diagnostics;
 
 namespace Sixeyed.MessagingPoweredFrontEnd.WebCore.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index(string user)
         {
-            return View();
+            var model = new MailModel
+            {
+                Sender = user
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()
