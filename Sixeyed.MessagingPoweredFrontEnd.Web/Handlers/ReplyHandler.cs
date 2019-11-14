@@ -6,17 +6,20 @@ using Sixeyed.MessagingPoweredFrontEnd.Web.Models;
 using Sixeyed.MessagingPoweredFrontEnd.Web.SignalR;
 using System;
 using System.Collections.Concurrent;
+using System.Configuration;
 
 namespace Sixeyed.MessagingPoweredFrontEnd.Web.Handlers
 {
     public static class ReplyHandler
     {
         private static ConcurrentDictionary<string, string> _UserConnectionIds = new ConcurrentDictionary<string, string>();
-        public static Queue Queue = new Queue(createReplyQueue: true);
+        public static Queue Queue;
         private static IHubConnectionContext<dynamic> _Clients;       
         
         public static void Init()
         {
+            string queueHost = ConfigurationManager.AppSettings["rabbitmq.host"];
+            Queue = new Queue(queueHost, createReplyQueue: true);
             Queue.Listen<MailBroadcastEvent>(Queue.ReplyQueueName, x => MailBroadcast(x));
             Queue.Listen<MailSavedEvent>(Queue.ReplyQueueName, x => MailSaved(x));
             _Clients = GlobalHost.ConnectionManager.GetHubContext<NoticeboardHub>().Clients;

@@ -6,6 +6,7 @@ using Sixeyed.MessagingPoweredFrontEnd.Web.Models;
 using Sixeyed.MessagingPoweredFrontEnd.Web.SignalR;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace Sixeyed.MessagingPoweredFrontEnd.Web.Handlers
 {
@@ -18,7 +19,8 @@ namespace Sixeyed.MessagingPoweredFrontEnd.Web.Handlers
         static NewMailHandler()
         {
             MailBag = new List<MailModel>();
-            _Queue = new Queue();            
+            string queueHost = ConfigurationManager.AppSettings["rabbitmq.host"];
+            _Queue = new Queue(queueHost);
         }
 
         public static void Init()

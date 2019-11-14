@@ -21,11 +21,10 @@ namespace Sixeyed.MessagingPoweredFrontEnd.Core.Messaging
 
         public string ReplyQueueName { get; private set; }        
 
-        public Queue(bool createReplyQueue = false)
-        {
-            var host = ConfigurationManager.AppSettings["rabbitmq.host"];
+        public Queue(string queueHost, bool createReplyQueue = false)
+        {            
             var factory = new ConnectionFactory();
-            factory.Uri = "amqp://guest:guest@" + host + ":5672/";
+            factory.Uri = new Uri("amqp://guest:guest@" + queueHost + ":5672/");
 
             var connection = factory.CreateConnection();
             _model = connection.CreateModel();

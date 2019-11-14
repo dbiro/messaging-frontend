@@ -16,15 +16,18 @@ namespace Sixeyed.MessagingPoweredFrontEnd.Handlers.Persistence
     /// </remarks>
     class Program
     {
-        private static Queue _Queue = new Queue();
+        private static Queue _Queue;
         private static MailTable _MailTable;
 
         static void Main(string[] args)
         {
+            string queueHost = ConfigurationManager.AppSettings["rabbitmq.host"];
+            _Queue = new Queue(queueHost);
+
             var client = StargateFactory.GetClient();
             client.BootstrapSchema();
             _MailTable = new MailTable(client);
-
+                        
             _Queue.Listen<SendMailRequest>("noticeboard-persist", x => SaveMail(x));
 
             Console.WriteLine("Listening for messages on: {0}, using Stargate at: {1}", ConfigurationManager.AppSettings["rabbitmq.host"], ConfigurationManager.AppSettings["hbase.cluster.url"]);

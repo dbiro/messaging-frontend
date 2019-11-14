@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>d3914d2e-6552-4172-9e5f-186b4d6e56c4</UserSecretsId>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sixeyed.MessagingPoweredFrontEnd.ContractsCore\Sixeyed.MessagingPoweredFrontEnd.ContractsCore.csproj" />
+    <ProjectReference Include="..\Sixeyed.MessagingPoweredFrontEnd.QueueCore\Sixeyed.MessagingPoweredFrontEnd.QueueCore.csproj" />
+  </ItemGroup>
+
+</Project>
